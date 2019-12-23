@@ -9,7 +9,7 @@ class ListNode:
         self.next = next
 
     def __str__(self):
-        return self.value
+        return str(self.value)
 
     """Wrap the given value in a ListNode and insert it
     after this node. Note that this node could already
@@ -56,9 +56,10 @@ class DoublyLinkedList:
 
     def print(self):
         curr_node = self.head
+        print(curr_node)
         while curr_node.next is not None:
-            print(curr_node)
             curr_node = curr_node.next
+            print(curr_node)
 
     """Wraps the given value in a ListNode and inserts it 
     as the new head of the list. Don't forget to handle 
@@ -81,7 +82,9 @@ class DoublyLinkedList:
     Returns the value of the removed Node."""
 
     def remove_from_head(self):
-        pass
+        value = self.head.value
+        self.delete(self.head)
+        return value
 
     """Wraps the given value in a ListNode and inserts it 
     as the new tail of the list. Don't forget to handle 
@@ -103,19 +106,29 @@ class DoublyLinkedList:
     Returns the value of the removed Node."""
 
     def remove_from_tail(self):
-        pass
+        value = self.tail.value
+        self.delete(self.tail)
+        return value
 
     """Removes the input node from its current spot in the 
     List and inserts it as the new head node of the List."""
 
     def move_to_front(self, node):
-        pass
+        if node is self.head:
+            return
+        value = node.value
+        self.delete(node)
+        self.add_to_head(value)
 
     """Removes the input node from its current spot in the 
     List and inserts it as the new tail node of the List."""
 
     def move_to_end(self, node):
-        pass
+        if node is self.tail:
+            return
+        value = node.value
+        self.delete(node)
+        self.add_to_tail(value)
 
     """Removes a node from the list and handles cases where
     the node was the head or the tail"""
@@ -123,21 +136,21 @@ class DoublyLinkedList:
     def delete(self, node):
         if not self.head and not self.tail:
             return
-        # if node is head?
-        if self.head == node:
-            self.head = node.next
-            self.length -= 1
-            node.delete()
-        # if node is tail?
-        if self.tail == node:
-            self.tail = node.prev
-            self.length -= 1
-            node.delete()
         # if head == tail?
         if self.head == self.tail:
             self.head = None
             self.tail = None
             self.length -= 1
+        # if node is head?
+        elif self.head == node:
+            self.head = node.next
+            self.length -= 1
+            node.delete()
+        # if node is tail?
+        elif self.tail == node:
+            self.tail = node.prev
+            self.length -= 1
+            node.delete()
         else:
             self.length -= 1
             node.delete()
@@ -146,3 +159,20 @@ class DoublyLinkedList:
 
     def get_max(self):
         pass
+
+
+first_node = ListNode(100)
+
+linked_list = DoublyLinkedList(first_node)
+linked_list.add_to_head(1)
+linked_list.add_to_head(2)
+linked_list.add_to_head(3)
+
+linked_list.add_to_tail(5)
+linked_list.delete(first_node)
+
+linked_list.remove_from_head()
+# linked_list.remove_from_tail()
+linked_list.print()
+print('------------')
+print(len(linked_list))
