@@ -36,10 +36,26 @@ def get_middle(linked_list):
     return slow_pointer.value
 
 
+def reverse_list(linked_list):
+    curr = linked_list.head
+    new = curr.next
+    # new tail
+    curr.next = None
+
+    while new is not None:
+        prev = curr
+        curr = new
+        new = curr.next
+        curr.next = prev
+        linked_list.head = curr
+
+
 ll = LinkedList()
 ll.add_to_front(1)
 ll.add_to_front(2)
 ll.add_to_front(3)
 ll.add_to_front(4)
 ll.printIt()
-print(get_middle(ll))
+
+print(reverse_list(ll))
+ll.printIt()
