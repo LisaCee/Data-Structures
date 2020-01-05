@@ -3,6 +3,14 @@ import sys
 sys.path.append('../doubly_linked_list')
 
 
+class KeyValNode(ListNode):
+    def __init__(self, value, key):
+        self.value = value
+        self.prev = None
+        self.next = None
+        self.key = key
+
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -13,9 +21,14 @@ class LRUCache:
     """
 
     def __init__(self, limit=10):
+        self.head = None
+        self.tail = None
         self.limit = limit
         self.size = 0
         self.storage = {}
+        # fast lookup
+        self.cache = DoublyLinkedList()
+        # fast removal
 
     """
     Retrieves the value associated with the given key. Also
@@ -25,8 +38,26 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
 
+    def maxCapacity(self):
+        savedPrev = self.prev
+        savedNext = self.next
+
+        savedPrev.next = savedNext
+        savedNext.prev = savedPrev
+
+    def recentlyAccessed(self, value):
+        self.prev = self.head
+        self.next = self.head.next
+
+        self.head.next.prev = value
+        self.head.next = value
+
     def get(self, key):
-        pass
+        if key in self.storage:
+            self.recentlyAccessed(key)
+            return key
+        else:
+            return None
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -40,9 +71,8 @@ class LRUCache:
     """
 
     def set(self, key, value):
+        new_node = KeyValNode(key, value)
+        if self.head is None and self.tail is None:
+            self.head = new_node
+            self.tail = new_node
         pass
-
-    def remove_tail(self):
-        if self.size + 1 > self.limit:
-            self.tail = self.tail.prev
-            self.tail.next = None
