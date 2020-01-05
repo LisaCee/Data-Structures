@@ -3,14 +3,6 @@ import sys
 sys.path.append('../doubly_linked_list')
 
 
-class KeyValNode(ListNode):
-    def __init__(self, value, key):
-        self.value = value
-        self.prev = None
-        self.next = None
-        self.key = key
-
-
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -54,9 +46,10 @@ class LRUCache:
 
     def get(self, key):
         if key in self.storage:
-            # keep in cache
-            # move to front of ll
-            pass
+            node = self.storage[key]
+            self.cache.delete(node)
+            self.cache.add_to_head(node)
+            return self.storage[key]
         else:
             return None
 
@@ -72,17 +65,33 @@ class LRUCache:
     """
 
     def set(self, key, value):
+        if not self.head:
+            self.head = ListNode(value)
+        else:
+            node = ListNode(value, self.head)
+            self.head.prev = node
+            self.head = node
         # get to see if key exists in cache
             # update value
             # move to head of ll
+        # if key in self.storage:
+        # node = self.storage[key]
+        self.storage[key] = value
+        self.size += 1
+        # self.cache.delete(node)
+        # self.cache.add_to_head(node)
 
         # if doesn't exist, add to cache
         # add to head of ll
         # check limit
-            # remove tail if needed
+        # remove tail if needed
 
         # new_node = KeyValNode(key, value)
         # if self.head is None and self.tail is None:
         #     self.head = new_node
         #     self.tail = new_node
-        pass
+
+
+lru = LRUCache(3)
+lru.set('key1', 'a')
+print(lru.cache.printIt())
