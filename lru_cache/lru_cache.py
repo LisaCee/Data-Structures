@@ -38,24 +38,25 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
 
-    def maxCapacity(self):
-        savedPrev = self.prev
-        savedNext = self.next
+    # def maxCapacity(self):
+    #     savedPrev = self.prev
+    #     savedNext = self.next
 
-        savedPrev.next = savedNext
-        savedNext.prev = savedPrev
+    #     savedPrev.next = savedNext
+    #     savedNext.prev = savedPrev
 
-    def recentlyAccessed(self, value):
-        self.prev = self.head
-        self.next = self.head.next
+    # def recentlyAccessed(self, value):
+    #     self.prev = self.head
+    #     self.next = self.head.next
 
-        self.head.next.prev = value
-        self.head.next = value
+    #     self.head.next.prev = value
+    #     self.head.next = value
 
     def get(self, key):
         if key in self.storage:
-            self.recentlyAccessed(key)
-            return key
+            # keep in cache
+            # move to front of ll
+            pass
         else:
             return None
 
@@ -71,8 +72,17 @@ class LRUCache:
     """
 
     def set(self, key, value):
-        new_node = KeyValNode(key, value)
-        if self.head is None and self.tail is None:
-            self.head = new_node
-            self.tail = new_node
+        # get to see if key exists in cache
+            # update value
+            # move to head of ll
+
+        # if doesn't exist, add to cache
+        # add to head of ll
+        # check limit
+            # remove tail if needed
+
+        # new_node = KeyValNode(key, value)
+        # if self.head is None and self.tail is None:
+        #     self.head = new_node
+        #     self.tail = new_node
         pass
