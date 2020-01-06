@@ -33,7 +33,8 @@ class LRUCache:
     def maxCapacity(self, key):
         if self.size == self.limit:
             self.cache.remove_from_tail()
-        self.storage.pop(key)
+        # self.storage.pop(key)
+        self.size -= 1
 
     # def recentlyAccessed(self, value):
     #     self.prev = self.head
@@ -94,6 +95,5 @@ class LRUCache:
 
 lru = LRUCache(3)
 lru.set('key1', 'a')
-lru.set('key1', 'b')
-# lru.cache.printIt()
-print(lru.get('key1'))
+lru.set('key2', 'b')
+lru.cache.printIt()
