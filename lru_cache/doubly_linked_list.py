@@ -56,16 +56,16 @@ class DoublyLinkedList:
     def __len__(self):
         return self.length
 
-    def __str__(self):
-        # if self.head is None and self.tail is None:
-        #     return 'empty list'
-        curr_node = self.head
-        output = ''
-        output += str(curr_node) + ' <-> '
-        while curr_node.next is not None:
-            curr_node = curr_node.next
-            output += str(curr_node) + ' <-> '
-        return output
+    # def __str__(self):
+    #     # if self.head is None and self.tail is None:
+    #     #     return 'empty list'
+    #     curr_node = self.head
+    #     output = ''
+    #     output += str(curr_node) + ' <-> '
+    #     while curr_node.next is not None:
+    #         curr_node = curr_node.next
+    #         output += str(curr_node) + ' <-> '
+    #     return output
 
     def printIt(self):
         curr_node = self.head
@@ -205,3 +205,9 @@ class DoublyLinkedList:
                 max_val = curr_node
             curr_node = curr_node.next
         return max_val.value
+
+
+# dll = DoublyLinkedList()
+# dll.add_to_head(3)
+# dll.add_to_head(4)
+# dll.printIt()

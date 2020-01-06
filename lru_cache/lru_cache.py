@@ -30,12 +30,10 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
 
-    # def maxCapacity(self):
-    #     savedPrev = self.prev
-    #     savedNext = self.next
-
-    #     savedPrev.next = savedNext
-    #     savedNext.prev = savedPrev
+    def maxCapacity(self, key):
+        if self.size == self.limit:
+            self.cache.remove_from_tail()
+        self.storage.pop(key)
 
     # def recentlyAccessed(self, value):
     #     self.prev = self.head
@@ -65,18 +63,25 @@ class LRUCache:
     """
 
     def set(self, key, value):
-        if not self.head:
-            self.head = ListNode(value)
+        self.maxCapacity(key)
+        if key in self.storage:
+            # self.storage[key] = value
+            if not self.head:
+                self.head = ListNode(value)
+                # print('HEAD',self.head)
+                self.tail = ListNode(value)
         else:
-            node = ListNode(value, self.head)
-            self.head.prev = node
+            node = ListNode(value)
+            old_head = self.head
             self.head = node
+            self.head.next = old_head
         # get to see if key exists in cache
             # update value
             # move to head of ll
         # if key in self.storage:
         # node = self.storage[key]
         self.storage[key] = value
+        # print(self.storage)
         self.size += 1
         # self.cache.delete(node)
         # self.cache.add_to_head(node)
@@ -86,12 +91,9 @@ class LRUCache:
         # check limit
         # remove tail if needed
 
-        # new_node = KeyValNode(key, value)
-        # if self.head is None and self.tail is None:
-        #     self.head = new_node
-        #     self.tail = new_node
-
 
 lru = LRUCache(3)
 lru.set('key1', 'a')
-print(lru.cache.printIt())
+lru.set('key1', 'b')
+# lru.cache.printIt()
+print(lru.get('key1'))
