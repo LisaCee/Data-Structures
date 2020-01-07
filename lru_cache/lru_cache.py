@@ -22,6 +22,13 @@ class LRUCache:
         self.cache = DoublyLinkedList()
         # fast removal
 
+    def print(self):
+        curr_node = self.head
+        print(curr_node)
+        while curr_node.next is not None:
+            curr_node = curr_node.next
+            print(curr_node)
+
     """
     Retrieves the value associated with the given key. Also
     needs to move the key-value pair to the end of the order
@@ -96,4 +103,4 @@ class LRUCache:
 lru = LRUCache(3)
 lru.set('key1', 'a')
 lru.set('key2', 'b')
-lru.cache.printIt()
+lru.print()
