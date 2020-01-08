@@ -37,7 +37,7 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
 
-    def maxCapacity(self, key):
+    def maxCapacity(self):
         if self.size == self.limit:
             self.cache.remove_from_tail()
         # self.storage.pop(key)
@@ -71,7 +71,7 @@ class LRUCache:
     """
 
     def set(self, key, value):
-        self.maxCapacity(key)
+        self.maxCapacity()
         if key in self.storage:
             # self.storage[key] = value
             if not self.head:
@@ -103,4 +103,6 @@ class LRUCache:
 lru = LRUCache(3)
 lru.set('key1', 'a')
 lru.set('key2', 'b')
+lru.set('key3', 'c')
+lru.set('item4', 'd')
 lru.print()
